@@ -97,6 +97,15 @@ extern "C" {
 #define OPENSSL_32_BIT
 #define OPENSSL_ARM
 #elif (defined(__PPC64__) || defined(__powerpc64__)) && defined(_LITTLE_ENDIAN)
+#elif defined(__riscv) || defined(__riscv__)
+#define OPENSSL_RISCV
+#if __riscv_xlen == 64
+#define OPENSSL_64_BIT
+#elif __riscv_xlen == 32
+#define OPENSSL_32_BIT
+#else
+#error "Unsupported RISC-V ISA width"
+#endif
 #define OPENSSL_64_BIT
 #define OPENSSL_PPC64LE
 #elif defined(__mips__) && !defined(__LP64__)
